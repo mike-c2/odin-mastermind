@@ -4,6 +4,7 @@
 # This class represents the Mastermind game.
 class Mastermind
   VALID_CODES = %w[A B C D E F].freeze
+  RESPONSE_CODES = %w[B W -].freeze
   CODE_LENGTH = 4
   NUMBER_OF_ATTEMPTS = 8
 
@@ -76,7 +77,7 @@ class GameManager
   end
 
   def play_games
-    puts "\nWelcome to this Mastermind game!\n\n"
+    print_instructions
 
     loop do
       play_game
@@ -96,6 +97,30 @@ class GameManager
     end
 
     @game.print_game
+  end
+
+  def print_instructions
+    puts "\nWelcome to this Mastermind game!\n\n"
+    puts 'In this game, a secret code consisting'
+    puts "of the following characters is generated:\n\n"
+    puts "  #{Mastermind::VALID_CODES.join('  ')}\n\n"
+    puts "The code is #{Mastermind::CODE_LENGTH} letters long and duplicates"
+    puts "are allowed.  You will be given #{Mastermind::NUMBER_OF_ATTEMPTS} chances"
+    puts "to guess the code.\n\n"
+    print_results_instructions
+  end
+
+  def print_results_instructions
+    puts 'After each guess, results will be displayed.'
+    puts "The results will be #{Mastermind::CODE_LENGTH} characters long and"
+    puts "will consist of the following characters:\n\n"
+    puts "#{Mastermind::RESPONSE_CODES[0]}: One character of your code is correct and"
+    puts "   is in the correct position.\n\n"
+    puts "#{Mastermind::RESPONSE_CODES[1]}: One character of your code is correct but"
+    puts "   is in the wrong position.\n\n"
+    puts "#{Mastermind::RESPONSE_CODES[2]}: One character of your code is incorrect.\n\n"
+    puts 'The results does not show any information about order'
+    puts "or which code is correct or wrong.\n\n"
   end
 
   def play_another_game?
