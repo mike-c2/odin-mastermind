@@ -4,7 +4,10 @@
 # This class represents the Mastermind game.
 class Mastermind
   VALID_CODES = %w[A B C D E F].freeze
-  RESPONSE_CODES = %w[B W -].freeze
+  BLACK = 'B'
+  WHITE = 'W'
+  MISS = '-'
+  RESPONSE_CODES = [BLACK, WHITE, MISS].freeze
   CODE_LENGTH = 4
   NUMBER_OF_ATTEMPTS = 8
 
@@ -55,7 +58,55 @@ class Mastermind
   end
 
   def attempt_code(code)
-    # TODO: Need to implement
+    return nil unless Mastermind.code_valid?(code)
+
+    attempt_info = {
+      code_list: code.split(''),
+      secret_list: secret_code.split(''),
+      feedback: ''
+    }
+
+    process_exact_matches(attempt_info)
+    process_off_matches(attempt_info)
+    process_no_matches(attempt_info)
+
+    attempt_info[:feedback]
+  end
+
+  def process_exact_matches(attempt_info)
+    attempt_info[:secret_list].length.times do |index|
+      next unless attempt_info[:code_list][index] == attempt_info[:secret_list][index]
+
+      attempt_info[:code_list][index] = nil
+      attempt_info[:secret_list][index] = nil
+      attempt_info[:feedback] += BLACK
+    end
+
+    attempt_info[:code_list].compact!
+    attempt_info[:secret_list].compact!
+
+    attempt_info
+  end
+
+  # This processes the codes that are correct, but their positions are wrong
+  def process_off_matches(attempt_info)
+    attempt_info[:secret_list].length.times do |index|
+      index_found = attempt_info[:secret_list].find_index(attempt_info[:code_list][index])
+
+      next unless index_found
+
+      attempt_info[:code_list][index] = nil
+      attempt_info[:secret_list][index_found] = nil
+      attempt_info[:feedback] += WHITE
+    end
+
+    attempt_info
+  end
+
+  def process_no_matches(attempt_info)
+    attempt_info[:feedback] += MISS * CODE_LENGTH
+    attempt_info[:feedback] = attempt_info[:feedback][0, CODE_LENGTH]
+    attempt_info
   end
 end
 
