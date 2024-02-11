@@ -62,7 +62,6 @@ class Mastermind
   end
 
   def print_game
-    puts "Cheat: #{@secret_code}"
     puts '-' * (CODE_LENGTH * 4 + 3)
 
     full_results = @results.clone
