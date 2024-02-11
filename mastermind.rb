@@ -13,6 +13,7 @@ class Mastermind
   end
 
   def new_game
+    @results = []
     @secret_code = random_code
   end
 
