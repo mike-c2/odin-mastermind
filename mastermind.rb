@@ -21,7 +21,7 @@ class Mastermind
   end
 
   def play?(choice)
-    return false unless Mastermind.code_valid?(choice)
+    return false unless self.class.code_valid?(choice)
 
     response = attempt_code(choice)
 
@@ -67,7 +67,7 @@ class Mastermind
   end
 
   def attempt_code(code)
-    return nil unless Mastermind.code_valid?(code)
+    return nil unless self.class.code_valid?(code)
 
     attempt_info = {
       code_list: code.split(''),
