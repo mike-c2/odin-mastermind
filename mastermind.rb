@@ -113,8 +113,6 @@ class Mastermind
 
       attempt_info[:code_list].compact!
       attempt_info[:secret_list].compact!
-
-      attempt_info
     end
 
     # This processes the codes that are correct, but their positions are wrong
@@ -128,15 +126,12 @@ class Mastermind
         attempt_info[:secret_list][index_found] = nil
         attempt_info[:feedback] += WHITE
       end
-
-      attempt_info
     end
 
     # This processes the codes that are not correct
     def process_no_matches(attempt_info)
       attempt_info[:feedback] += MISS * CODE_LENGTH
       attempt_info[:feedback] = attempt_info[:feedback][0, CODE_LENGTH]
-      attempt_info
     end
   end
 end
