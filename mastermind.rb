@@ -21,9 +21,9 @@ class Mastermind
   end
 
   def play?(choice)
-    return false unless self.class.code_valid?(choice)
+    response = self.class.attempt_code(choice, @secret_code)
 
-    response = attempt_code(choice)
+    return false unless response
 
     result_entry = {
       attempt: choice,
@@ -64,56 +64,62 @@ class Mastermind
     new_code
   end
 
-  def attempt_code(code)
-    return nil unless self.class.code_valid?(code)
+  class << self
+    def attempt_code(selected_code, final_code)
+      return nil unless code_valid?(selected_code) && code_valid?(final_code)
 
-    attempt_info = {
-      code_list: code.split(''),
-      secret_list: secret_code.split(''),
-      feedback: ''
-    }
+      attempt_info = {
+        code_list: selected_code.split(''),
+        secret_list: final_code.split(''),
+        feedback: ''
+      }
 
-    process_exact_matches(attempt_info)
-    process_off_matches(attempt_info)
-    process_no_matches(attempt_info)
+      process_exact_matches(attempt_info)
+      process_off_matches(attempt_info)
+      process_no_matches(attempt_info)
 
-    attempt_info[:feedback]
-  end
-
-  def process_exact_matches(attempt_info)
-    attempt_info[:secret_list].length.times do |index|
-      next unless attempt_info[:code_list][index] == attempt_info[:secret_list][index]
-
-      attempt_info[:code_list][index] = nil
-      attempt_info[:secret_list][index] = nil
-      attempt_info[:feedback] += BLACK
+      attempt_info[:feedback]
     end
 
-    attempt_info[:code_list].compact!
-    attempt_info[:secret_list].compact!
+    private
 
-    attempt_info
-  end
+    # This processes the codes that are correct and with the correct positions
+    def process_exact_matches(attempt_info)
+      attempt_info[:secret_list].length.times do |index|
+        next unless attempt_info[:code_list][index] == attempt_info[:secret_list][index]
 
-  # This processes the codes that are correct, but their positions are wrong
-  def process_off_matches(attempt_info)
-    attempt_info[:secret_list].length.times do |index|
-      index_found = attempt_info[:secret_list].find_index(attempt_info[:code_list][index])
+        attempt_info[:code_list][index] = nil
+        attempt_info[:secret_list][index] = nil
+        attempt_info[:feedback] += BLACK
+      end
 
-      next unless index_found
+      attempt_info[:code_list].compact!
+      attempt_info[:secret_list].compact!
 
-      attempt_info[:code_list][index] = nil
-      attempt_info[:secret_list][index_found] = nil
-      attempt_info[:feedback] += WHITE
+      attempt_info
     end
 
-    attempt_info
-  end
+    # This processes the codes that are correct, but their positions are wrong
+    def process_off_matches(attempt_info)
+      attempt_info[:secret_list].length.times do |index|
+        index_found = attempt_info[:secret_list].find_index(attempt_info[:code_list][index])
 
-  def process_no_matches(attempt_info)
-    attempt_info[:feedback] += MISS * CODE_LENGTH
-    attempt_info[:feedback] = attempt_info[:feedback][0, CODE_LENGTH]
-    attempt_info
+        next unless index_found
+
+        attempt_info[:code_list][index] = nil
+        attempt_info[:secret_list][index_found] = nil
+        attempt_info[:feedback] += WHITE
+      end
+
+      attempt_info
+    end
+
+    # This processes the codes that are not correct
+    def process_no_matches(attempt_info)
+      attempt_info[:feedback] += MISS * CODE_LENGTH
+      attempt_info[:feedback] = attempt_info[:feedback][0, CODE_LENGTH]
+      attempt_info
+    end
   end
 end
 
