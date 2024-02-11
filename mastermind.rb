@@ -40,7 +40,7 @@ class Mastermind
   end
 
   def more_choices_remaining?
-    # TODO: Need to implement
+    @results.length < NUMBER_OF_ATTEMPTS
   end
 
   def self.code_valid?(code)
