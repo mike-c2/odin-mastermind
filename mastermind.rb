@@ -57,8 +57,6 @@ class Mastermind
     true
   end
 
-  private
-
   def random_code
     new_code = ''
     CODE_LENGTH.times { |_| new_code += VALID_CODES.sample }
