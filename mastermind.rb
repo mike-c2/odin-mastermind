@@ -21,7 +21,16 @@ class Mastermind
   end
 
   def play?(choice)
-    # TODO: Need to implement
+    return false unless Mastermind.code_valid?(choice)
+
+    response = attempt_code(choice)
+
+    result_entry = {
+      attempt: choice,
+      feedback: response
+    }
+
+    @results.push(result_entry)
 
     true
   end
