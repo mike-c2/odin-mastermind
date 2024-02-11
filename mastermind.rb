@@ -43,10 +43,6 @@ class Mastermind
     # TODO: Need to implement
   end
 
-  def print_game
-    # TODO: Need to implement
-  end
-
   def self.code_valid?(code)
     return false unless code.length == CODE_LENGTH
 
@@ -62,6 +58,28 @@ class Mastermind
     CODE_LENGTH.times { |_| new_code += VALID_CODES.sample }
 
     new_code
+  end
+
+  def print_game
+    puts "Cheat: #{@secret_code}"
+    puts '-' * (CODE_LENGTH * 4 + 3)
+
+    full_results = @results.clone
+
+    # The table that's printed will always be NUMBER_OF_ATTEMPTS rows
+    while full_results.length < NUMBER_OF_ATTEMPTS
+      full_results.push({ attempt: ' ' * CODE_LENGTH, feedback: ' ' * CODE_LENGTH })
+    end
+
+    full_results.reverse.each do |result|
+      puts "|  #{result[:attempt]}  |  #{result[:feedback]}  |"
+      print_row_separator
+    end
+  end
+
+  def print_row_separator
+    print "|#{'-' * (CODE_LENGTH + 4)}" * 2
+    puts '|'
   end
 
   class << self
