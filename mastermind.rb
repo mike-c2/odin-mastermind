@@ -13,7 +13,7 @@ class Mastermind
   end
 
   def new_game
-    # TODO: Need to implement
+    @secret_code = random_code
   end
 
   def play?(choice)
@@ -37,7 +37,10 @@ class Mastermind
   private
 
   def random_code
-    # TODO: Need to implement
+    new_code = ''
+    CODE_LENGTH.times { |_| new_code += VALID_CODES.sample }
+
+    new_code
   end
 
   def attempt_code(code)
