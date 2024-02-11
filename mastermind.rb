@@ -150,7 +150,7 @@ class Player
 
   def enter_choice
     puts "\n#{name} enter your next move:"
-    gets.chomp
+    gets.upcase.chomp
   end
 end
 
