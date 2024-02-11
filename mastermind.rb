@@ -36,7 +36,8 @@ class Mastermind
   end
 
   def check_winner?
-    # TODO: Need to implement
+    winning_result = BLACK * CODE_LENGTH
+    @results.any? { |result| result[:feedback] == winning_result }
   end
 
   def more_choices_remaining?
