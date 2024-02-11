@@ -17,7 +17,7 @@ class Mastermind
 
   def new_game
     @results = []
-    @secret_code = random_code
+    @secret_code = self.class.random_code
   end
 
   def play?(choice)
@@ -55,13 +55,6 @@ class Mastermind
     true
   end
 
-  def random_code
-    new_code = ''
-    CODE_LENGTH.times { |_| new_code += VALID_CODES.sample }
-
-    new_code
-  end
-
   def print_game
     puts '-' * (CODE_LENGTH * 4 + 3)
 
@@ -84,6 +77,13 @@ class Mastermind
   end
 
   class << self
+    def random_code
+      new_code = ''
+      CODE_LENGTH.times { |_| new_code += VALID_CODES.sample }
+
+      new_code
+    end
+
     def attempt_code(selected_code, final_code)
       return nil unless code_valid?(selected_code) && code_valid?(final_code)
 
