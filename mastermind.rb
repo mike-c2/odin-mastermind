@@ -45,16 +45,6 @@ class Mastermind
     @results.length < NUMBER_OF_ATTEMPTS
   end
 
-  def self.code_valid?(code)
-    return false unless code.length == CODE_LENGTH
-
-    code.split('').each do |char|
-      return false unless VALID_CODES.include?(char)
-    end
-
-    true
-  end
-
   def print_game
     puts '-' * (CODE_LENGTH * 4 + 3)
 
@@ -77,6 +67,16 @@ class Mastermind
   end
 
   class << self
+    def code_valid?(code)
+      return false unless code.length == CODE_LENGTH
+
+      code.split('').each do |char|
+        return false unless VALID_CODES.include?(char)
+      end
+
+      true
+    end
+
     def random_code
       new_code = ''
       CODE_LENGTH.times { |_| new_code += VALID_CODES.sample }
