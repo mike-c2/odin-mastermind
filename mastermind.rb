@@ -34,6 +34,16 @@ class Mastermind
     # TODO: Need to implement
   end
 
+  def self.code_valid?(code)
+    return false unless code.length == CODE_LENGTH
+
+    code.split('').each do |char|
+      return false unless VALID_CODES.include?(char)
+    end
+
+    true
+  end
+
   private
 
   def random_code
@@ -44,10 +54,6 @@ class Mastermind
   end
 
   def attempt_code(code)
-    # TODO: Need to implement
-  end
-
-  def code_valid?(code)
     # TODO: Need to implement
   end
 end
