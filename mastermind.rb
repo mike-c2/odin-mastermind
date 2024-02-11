@@ -21,6 +21,7 @@ class Mastermind
   end
 
   def play?(choice)
+    choice = choice.upcase
     response = self.class.attempt_code(choice, @secret_code)
 
     return false unless response
@@ -149,7 +150,7 @@ class Player
 
   def enter_choice
     puts "\n#{name} enter your next move:"
-    gets.upcase.chomp
+    gets.chomp
   end
 end
 
