@@ -15,9 +15,9 @@ class Mastermind
     new_game
   end
 
-  def new_game
+  def new_game(secret_code)
+    @secret_code = self.class.code_valid?(secret_code) ? secret_code : self.class.random_code
     @results = []
-    @secret_code = self.class.random_code
   end
 
   def play?(choice)
