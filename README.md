@@ -18,7 +18,7 @@ There are two modes that you can play:
 
 All codes that you enter must be 4 digits long and consist of these characters: A, B, C, D, E, F
 
-Duplicate characters are allowed and the input is case insensitive. Here are some examples of valid characters:
+Duplicate characters are allowed and the input is case insensitive. Here are some examples of valid codes:
 
 - aabc
 
