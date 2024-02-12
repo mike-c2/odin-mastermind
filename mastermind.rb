@@ -172,6 +172,9 @@ end
 # steps there, skipping the "Minimax
 # technique".  Even without that, the
 # Computer will virtually win every game.
+#
+# Instead of the "Minimax technique" a
+# random code is selected from set S.
 class Computer
   def initialize(game)
     @game = game
