@@ -154,7 +154,7 @@ class Player
   end
 
   def enter_choice
-    puts "\n#{name} enter your next move:"
+    puts "\n#{name}, enter your next move:"
     gets.chomp
   end
 end
