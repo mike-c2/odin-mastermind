@@ -3,6 +3,8 @@
 ##
 # This class represents the Mastermind game.
 class Mastermind
+  attr_reader :results
+
   VALID_CODES = %w[A B C D E F].freeze
   BLACK = 'B'
   WHITE = 'W'
@@ -163,17 +165,20 @@ end
 class Computer
   def initialize(game)
     @game = game
+
+    @all_codes = Mastermind::VALID_CODES.repeated_permutation(Mastermind::CODE_LENGTH).to_a
+    @all_codes.map!(&:join)
   end
 
   def find_code
     create_s
-
-    first_guess = "#{Mastermind::VALID_CODES[0] * 2}#{Mastermind::VALID_CODES[1] * (Mastermind::CODE_LENGTH - 2)}"
-    @game.play?(first_guess)
+    @last_guess = "#{Mastermind::VALID_CODES[0] * 2}#{Mastermind::VALID_CODES[1] * (Mastermind::CODE_LENGTH - 2)}"
+    @game.play?(@last_guess)
 
     while @game.more_choices_remaining?
       break if @game.check_winner?
 
+      filter_s
       @game.play?(guess_code)
     end
   end
@@ -183,7 +188,15 @@ class Computer
   end
 
   def create_s
-    @s_list = Mastermind::VALID_CODES.repeated_permutation(Mastermind::CODE_LENGTH).to_a
+    @s_list = @all_codes.clone
+  end
+
+  def filter_s
+    last_feedback = @game.results.last[:feedback]
+
+    @s_list.select! do |possible_code|
+      last_feedback == Mastermind.attempt_code(possible_code, @last_guess)
+    end
   end
 end
 
