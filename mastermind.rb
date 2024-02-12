@@ -166,6 +166,11 @@ class Computer
   end
 
   def find_code
+    create_s
+
+    first_guess = "#{Mastermind::VALID_CODES[0] * 2}#{Mastermind::VALID_CODES[1] * (Mastermind::CODE_LENGTH - 2)}"
+    @game.play?(first_guess)
+
     while @game.more_choices_remaining?
       break if @game.check_winner?
 
@@ -175,6 +180,10 @@ class Computer
 
   def guess_code
     Mastermind.random_code
+  end
+
+  def create_s
+    @s_list = Mastermind::VALID_CODES.repeated_permutation(Mastermind::CODE_LENGTH).to_a
   end
 end
 
