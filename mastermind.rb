@@ -307,12 +307,8 @@ class CodeMaker < GameManager
   def play_game
     enter_player_choice
 
-    loop do
-      @computer.find_code
-
-      break if game_over?
-    end
-
+    @computer.find_code
+    game_over?
     @game.print_game
   end
 
