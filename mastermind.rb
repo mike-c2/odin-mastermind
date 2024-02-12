@@ -142,7 +142,6 @@ end
 # play the Mastermind game.
 class Player
   attr_accessor :name
-  attr_reader :game_mark
 
   def initialize(name)
     @name = name
