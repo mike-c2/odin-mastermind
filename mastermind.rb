@@ -355,6 +355,40 @@ class CodeMaker < GameManager
   end
 end
 
-# game = CodeBreaker.new('Player 1')
-game = CodeMaker.new('Player 1')
-game.play_games
+def print_intro
+  puts "Welcome to Mastermind!\n\n"
+  puts "Which version of the game do you want to play?\n\n"
+  puts '    1: Code Breaker - A secret code is generated and you try to guess it.'
+  puts "    2: Code Maker - You pick a secret code and the computer will try to guess it.\n\n"
+  puts 'Enter a number from above to select the game mode.'
+end
+
+def enter_player_name
+  name = ''
+  puts 'What is your name?'
+  name = gets.chomp until name.length.positive?
+
+  puts "Hello #{name}!\n\n"
+
+  name
+end
+
+def start_game
+  name = enter_player_name
+  print_intro
+
+  game_mode = nil
+
+  until game_mode
+    choice = gets.chomp
+
+    game_mode = CodeBreaker.new(name) if choice == '1'
+    game_mode = CodeMaker.new(name) if choice == '2'
+
+    puts 'The option you picked is not valid, try again.' unless game_mode
+  end
+
+  game_mode.play_games
+end
+
+start_game
