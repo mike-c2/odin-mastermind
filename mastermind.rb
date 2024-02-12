@@ -175,6 +175,26 @@ class GameManager
     end
   end
 
+  def play_another_game?
+    puts "\nWould you like to play another game of Mastermind? Enter 'y' or 'n':"
+
+    loop do
+      response = gets.chomp.downcase
+
+      return false if response == 'n'
+      return true if response == 'y'
+
+      puts "Your response is not valid, enter either 'y' or 'n':"
+    end
+  end
+end
+
+##
+# This class runs the traditional Mastermind
+# mode of the game where a random secret code
+# is generated and the player tries to guess
+# it.
+class CodeBreaker < GameManager
   def play_game
     loop do
       @game.print_game
@@ -210,19 +230,6 @@ class GameManager
     puts "or which code is correct or wrong.\n\n"
   end
 
-  def play_another_game?
-    puts "\nWould you like to play another game of Mastermind? Enter 'y' or 'n':"
-
-    loop do
-      response = gets.chomp.downcase
-
-      return false if response == 'n'
-      return true if response == 'y'
-
-      puts "Your response is not valid, enter either 'y' or 'n':"
-    end
-  end
-
   def enter_player_choice
     puts 'Selection entered is not valid. ' until @game.play?(@player.enter_choice)
   end
@@ -242,5 +249,5 @@ class GameManager
   end
 end
 
-game_manager = GameManager.new('Player 1')
-game_manager.play_games
+code_breaker = CodeBreaker.new('Player 1')
+code_breaker.play_games
