@@ -285,7 +285,7 @@ class CodeBreaker < GameManager
     end
 
     unless @game.more_choices_remaining?
-      puts "\nGame over, #{@player.name},you lost the game"
+      puts "\nGame over, #{@player.name}, you lost the game"
       return true
     end
 
@@ -338,7 +338,7 @@ class CodeMaker < GameManager
 
   def game_over?
     if @game.check_winner?
-      puts "\nGame over, #{@player.name},you lost the game"
+      puts "\nGame over, #{@player.name}, you lost the game"
       return true
     end
 
