@@ -249,5 +249,62 @@ class CodeBreaker < GameManager
   end
 end
 
-code_breaker = CodeBreaker.new('Player 1')
-code_breaker.play_games
+##
+# This class runs the reverse Mastermind
+# mode of the game where the player makes
+# a secret code and the computer tries to
+# guess it.
+class CodeMaker < GameManager
+  def play_game
+    enter_player_choice
+
+    loop do
+      # TODO: Computer AI call will be made here
+
+      break if game_over?
+    end
+
+    @game.print_game
+  end
+
+  def print_instructions
+    puts "\nWelcome to this reverse mode Mastermind game!\n\n"
+    puts 'In this game, you will choose a secret code using'
+    puts "the following characters:\n\n"
+    puts "  #{Mastermind::VALID_CODES.join('  ')}\n\n"
+    puts "The code needs to be #{Mastermind::CODE_LENGTH} letters long and duplicates"
+    puts 'are allowed.  The Computer will then try to guess the code'
+    puts "and will be given #{Mastermind::NUMBER_OF_ATTEMPTS} chances to guess it."
+    puts 'All of the guesses will be displayed along with the final'
+    puts "results.\n\n"
+  end
+
+  def enter_player_choice
+    secret_code = nil
+    loop do
+      secret_code = @player.enter_choice
+      break if Mastermind.code_valid?(secret_code)
+
+      puts 'Code entered is not valid'
+    end
+
+    @game.new_game(secret_code)
+  end
+
+  def game_over?
+    if @game.check_winner?
+      puts "\nGame over, #{@player.name},you lost the game"
+      return true
+    end
+
+    unless @game.more_choices_remaining?
+      puts "\nGame over, #{@player.name}, you won the game!"
+      return true
+    end
+
+    false
+  end
+end
+
+game = CodeMaker.new('Player 1')
+game.play_games
