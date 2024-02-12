@@ -176,12 +176,12 @@ class Computer
   def initialize(game)
     @game = game
 
-    @all_codes = Mastermind::VALID_CODES.repeated_permutation(Mastermind::CODE_LENGTH).to_a
-    @all_codes.map!(&:join)
+    @all_possible_codes = Mastermind::VALID_CODES.repeated_permutation(Mastermind::CODE_LENGTH).to_a
+    @all_possible_codes.map!(&:join)
   end
 
   def find_code
-    @s_list = @all_codes.clone
+    @s_list = @all_possible_codes.clone
 
     @current_guess = "#{Mastermind::VALID_CODES[0] * 2}#{Mastermind::VALID_CODES[1] * (Mastermind::CODE_LENGTH - 2)}"
     guess_code
