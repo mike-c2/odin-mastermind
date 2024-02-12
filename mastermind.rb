@@ -74,7 +74,7 @@ class Mastermind
     def code_valid?(code)
       return false unless code && code.length == CODE_LENGTH
 
-      code.split('').each do |char|
+      code.upcase.split('').each do |char|
         return false unless VALID_CODES.include?(char)
       end
 
