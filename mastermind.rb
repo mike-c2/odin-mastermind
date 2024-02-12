@@ -310,5 +310,6 @@ class CodeMaker < GameManager
   end
 end
 
-game = CodeMaker.new('Player 1')
+game = CodeBreaker.new('Player 1')
+# game = CodeMaker.new('Player 1')
 game.play_games
