@@ -363,7 +363,12 @@ end
 
 def print_intro
   puts "Welcome to Mastermind!\n\n"
-  puts "Which version of the game do you want to play?\n\n"
+  puts 'There a there are two different modes that you can play.'
+  puts 'Regardless of which mode, you will be entering a'
+  puts "#{Mastermind::CODE_LENGTH} digit code consisting of these characters:\n\n"
+  puts "    #{Mastermind::VALID_CODES.join(' ')}\n\n"
+  puts "The input is case insensitive so entering aabb is the same as AABB.\n\n"
+  puts "Which mode of the game do you want to play?\n\n"
   puts '    1: Code Breaker - A secret code is generated and you try to guess it.'
   puts "    2: Code Maker - You pick a secret code and the computer will try to guess it.\n\n"
   puts 'Enter a number from above to select the game mode.'
