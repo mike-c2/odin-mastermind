@@ -16,7 +16,7 @@ There are two modes that you can play:
 
 - **Code Maker**: You pick a secret code and the Computer will try to guess it within 8 turns.
 
-All codes that you enter must be 4 digits long and consist of these characters: A, B, C, D, E, F, G
+All codes that you enter must be 4 digits long and consist of these characters: A, B, C, D, E, F
 
 Duplicate characters are allowed and the input is case insensitive. Here are some examples of valid characters:
 
