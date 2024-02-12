@@ -171,31 +171,28 @@ class Computer
   end
 
   def find_code
-    create_s
-    @last_guess = "#{Mastermind::VALID_CODES[0] * 2}#{Mastermind::VALID_CODES[1] * (Mastermind::CODE_LENGTH - 2)}"
-    @game.play?(@last_guess)
+    @s_list = @all_codes.clone
+
+    @current_guess = "#{Mastermind::VALID_CODES[0] * 2}#{Mastermind::VALID_CODES[1] * (Mastermind::CODE_LENGTH - 2)}"
+    guess_code
 
     while @game.more_choices_remaining?
       break if @game.check_winner?
 
       filter_s
-      @game.play?(guess_code)
+      @current_guess = @s_list.sample
+      guess_code
     end
   end
 
   def guess_code
-    Mastermind.random_code
-  end
-
-  def create_s
-    @s_list = @all_codes.clone
+    @game.play?(@current_guess)
+    @current_feedback = @game.results.last[:feedback]
   end
 
   def filter_s
-    last_feedback = @game.results.last[:feedback]
-
     @s_list.select! do |possible_code|
-      last_feedback == Mastermind.attempt_code(possible_code, @last_guess)
+      Mastermind.attempt_code(possible_code, @current_guess) == @current_feedback
     end
   end
 end
