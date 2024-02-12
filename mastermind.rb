@@ -162,6 +162,16 @@ end
 ##
 # This class is the Computer AI that will
 # attempt to figure out the secret code.
+#
+# It uses the Donald Knuth algorithm as seen
+# here:
+#
+#    https://github.com/NathanDuran/Mastermind-Five-Guess-Algorithm
+#
+# It currently only implements the first 5
+# steps there, skipping the "Minimax
+# technique".  Even without that, the
+# Computer will virtually win every game.
 class Computer
   def initialize(game)
     @game = game
