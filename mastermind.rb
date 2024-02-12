@@ -21,6 +21,8 @@ class Mastermind
   end
 
   def play?(choice)
+    return false unless choice
+
     choice = choice.upcase
     response = self.class.attempt_code(choice, @secret_code)
 
