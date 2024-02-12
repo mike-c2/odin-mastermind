@@ -16,6 +16,8 @@ class Mastermind
   end
 
   def new_game(secret_code = nil)
+    secret_code = secret_code ? secret_code.upcase : ''
+
     @secret_code = self.class.code_valid?(secret_code) ? secret_code : self.class.random_code
     @results = []
   end
