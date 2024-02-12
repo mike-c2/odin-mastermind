@@ -158,6 +158,27 @@ class Player
 end
 
 ##
+# This class is the Computer AI that will
+# attempt to figure out the secret code.
+class Computer
+  def initialize(game)
+    @game = game
+  end
+
+  def find_code
+    while @game.more_choices_remaining?
+      break if @game.check_winner?
+
+      @game.play?(guess_code)
+    end
+  end
+
+  def guess_code
+    Mastermind.random_code
+  end
+end
+
+##
 # This class runs the actual Mastermind
 # game.
 class GameManager
@@ -259,11 +280,16 @@ end
 # a secret code and the computer tries to
 # guess it.
 class CodeMaker < GameManager
+  def initialize(name)
+    super(name)
+    @computer = Computer.new(@game)
+  end
+
   def play_game
     enter_player_choice
 
     loop do
-      # TODO: Computer AI call will be made here
+      @computer.find_code
 
       break if game_over?
     end
@@ -310,6 +336,6 @@ class CodeMaker < GameManager
   end
 end
 
-game = CodeBreaker.new('Player 1')
-# game = CodeMaker.new('Player 1')
+# game = CodeBreaker.new('Player 1')
+game = CodeMaker.new('Player 1')
 game.play_games
